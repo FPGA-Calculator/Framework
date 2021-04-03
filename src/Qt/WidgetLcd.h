@@ -3,6 +3,7 @@
 
 #include <QPaintEngine>
 #include <QLabel>
+#include "vrEmuLcd.h"
 
 class WidgetLcd : public QLabel
 {
@@ -15,7 +16,8 @@ private:
     void paintEvent(QPaintEvent *) override;
 
 private:
-    QImage *m_lcd;
+    VrEmuLcd *m_lcd;
+    QImage *m_image;
 };
 
 #endif // LCD_H

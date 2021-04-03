@@ -6,13 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    m_lcd = vrEmuLcdNew(16, 2, EmuLcdRomA02);
 }
 
 MainWindow::~MainWindow()
 {
-    vrEmuLcdDestroy(m_lcd);
-
     delete ui;
 }

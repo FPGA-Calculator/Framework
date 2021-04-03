@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "vrEmuLcd.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +17,5 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    VrEmuLcd *m_lcd;
 };
 #endif // MAINWINDOW_H
