@@ -12,10 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel *l = ui->centralwidget->findChild<QLabel *>("lcd");
     QPixmap pic(":/vrEmuLcd.gif");
     l->setPixmap(pic);
+
+    m_lcd = vrEmuLcdNew(16, 2, EmuLcdRomA02);
 }
 
 MainWindow::~MainWindow()
 {
+    vrEmuLcdDestroy(m_lcd);
     delete ui;
 }
-
