@@ -20,6 +20,7 @@ wire lcd_busy;
 wire [8:0] d_in;
 wire [3:0] rom_in;
 
+`ifndef QUARTUS
 initial begin
     if ($test$plusargs("trace") != 0) begin
         $display("[%0t] Tracing to logs/vlt_dump.vcd...\n", $time);
@@ -28,6 +29,7 @@ initial begin
     end
         $display("[%0t] Model running...\n", $time);
 end
+`endif
 
 lcd lcd(
     .clock(CLOCK_50),
