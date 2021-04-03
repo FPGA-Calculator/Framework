@@ -10,10 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    vrEmuLcd.cpp
 
 HEADERS += \
-    MainWindow.h
+    MainWindow.h \
+    font.h \
+    vrEmuLcd.h
 
 FORMS += \
     MainWindow.ui
