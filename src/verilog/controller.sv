@@ -29,6 +29,8 @@ always_ff @(posedge clock) begin
         halt <= 1;
         data_ready <= 0;
         rom_address <= 0;
+        $write("*-* Finished *-*\n");
+        $finish;
     end
 
     // Prevent the system from sending the first character during initialization
@@ -49,6 +51,7 @@ always_ff @(posedge clock) begin
             end
             else if (lcd_busy == 1) begin
                 rom_address <= rom_address + 4'b1;
+                $write("ROM address=%x\n", rom_address);
                 data_ready <= 0;
             end
         end
