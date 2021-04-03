@@ -19,13 +19,6 @@ dist/
 # Package files
 *.jar
 
-# Maven
-target/
-dist/
-
-# JetBrains IDE
-.idea/
-
 # Unit test reports
 TEST*.xml
 
@@ -48,3 +41,8 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Quartus files
+*.qws
+db/
+incremental_db/
+output_files/
