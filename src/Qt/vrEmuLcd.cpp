@@ -555,7 +555,8 @@ void vrEmuLcdUpdatePixels(VrEmuLcd *lcd)
                         continue;
                     }
 
-                    // set the pixel data from the character bits *pixel = (bits[x] &(0x80 >> y)) ? 1 : 0;
+                    // set the pixel data from the character bits
+                    *pixel = (bits[x] &(0x80 >> y)) ? 1 : 0;
 
                     // override with cursor data if appropriate
                     if (drawCursor)
