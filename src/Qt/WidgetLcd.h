@@ -12,6 +12,8 @@ public:
     explicit WidgetLcd(QWidget *parent);
     ~WidgetLcd();
 
+    void restart();
+
 private:
     void paintEvent(QPaintEvent *) override;
 
