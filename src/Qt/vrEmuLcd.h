@@ -150,7 +150,7 @@ void vrEmuLcdUpdatePixels(VrEmuLcd *lcd);
  * ----------------------------------------
  * get the size of the entire display in pixels (including unused border pixels)
  */
-void vrEmuLcdNumPixels(VrEmuLcd *lcd, int* width, int* height);
+void vrEmuLcdNumPixels(VrEmuLcd *lcd, int *width, int *height);
 
 /* Function:  vrEmuLcdNumPixelsX
  * ----------------------------------------

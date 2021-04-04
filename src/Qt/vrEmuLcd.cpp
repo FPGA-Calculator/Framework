@@ -47,7 +47,7 @@ const byte LCD_CMD_SET_DRAM_ADDR        = 0b10000000;
 #define CHAR_HEIGHT_PX        8
 
 #define DATA_WIDTH_CHARS_1ROW 80
-#define DATA_WIDTH_CHARS_2ROW 40
+#define DATA_WIDTH_CHARS_2ROW 64
 #define DATA_WIDTH_CHARS_4ROW 20
 #define DDRAM_SIZE            128
 #define DDRAM_VISIBLE_SIZE    80
@@ -114,7 +114,7 @@ struct vrEmuLcd_s
  */
 static void increment(VrEmuLcd *lcd)
 {
-    ++lcd->ddPtr;
+    lcd->ddPtr++;
 
     // find pointer offset from start
     int offset = lcd->ddPtr - lcd->ddRam;
@@ -244,9 +244,9 @@ VrEmuLcd *vrEmuLcdNew(int cols, int rows, vrEmuLcdCharacterRom rom)
         lcd->displayFlags = 0x00;
         lcd->scrollOffset = 0x00;
         lcd->cgPtr = NULL;
-        lcd->pixelsWidth = lcd->cols *(CHAR_WIDTH_PX + 1) - 1;
-        lcd->pixelsHeight = lcd->rows *(CHAR_HEIGHT_PX + 1) - 1;
-        lcd->numPixels = lcd->pixelsWidth *lcd->pixelsHeight;
+        lcd->pixelsWidth = lcd->cols * (CHAR_WIDTH_PX + 1) - 1;
+        lcd->pixelsHeight = lcd->rows * (CHAR_HEIGHT_PX + 1) - 1;
+        lcd->numPixels = lcd->pixelsWidth * lcd->pixelsHeight;
         lcd->pixels = (char*) malloc(lcd->numPixels);
 
         switch (lcd->rows)
@@ -492,11 +492,11 @@ int vrEmuLcdGetDataOffset(VrEmuLcd *lcd, int row, int col)
     // adjust for display scroll offset
     if (row >= lcd->rows) row = lcd->rows - 1;
 
-    while (lcd->scrollOffset< 0)
+    while (lcd->scrollOffset < 0)
         lcd->scrollOffset += lcd->dataWidthCols;
 
     int dataCol = (col + lcd->scrollOffset) % lcd->dataWidthCols;
-    int rowOffset = row *lcd->dataWidthCols;
+    int rowOffset = row * lcd->dataWidthCols;
 
     if (lcd->rows > 2)
         rowOffset = rowOffsets[row];
@@ -524,7 +524,7 @@ void vrEmuLcdUpdatePixels(VrEmuLcd *lcd)
 
     int displayOn = lcd->displayFlags & LCD_CMD_DISPLAY_ON;
 
-    // /cycle through each row of the display
+    // cycle through each row of the display
     for (int row = 0; row < lcd->rows; row++)
     {
         for (int col = 0; col < lcd->cols; col++)
