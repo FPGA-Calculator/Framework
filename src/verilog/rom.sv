@@ -23,7 +23,7 @@ always_comb begin
         4'ha: rom_out = 9'b101101100;
         4'hb: rom_out = 9'b101100100;
         4'hc: rom_out = 9'b100100000;
-        4'hd: rom_out = 9'b010001111; // Leave cursor at the last char / first line
+        4'hd: rom_out = 9'b010001110; // Leave cursor at the last char / first line
         4'he: rom_out = 9'b100100000; // Need to write a char to make cursor visible
         4'hf: rom_out = 9'b011000000; // Set address 40h (first char / second line)
         default: rom_out = 9'hXXX;
