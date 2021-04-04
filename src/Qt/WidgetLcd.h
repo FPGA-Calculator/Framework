@@ -12,7 +12,10 @@ public:
     explicit WidgetLcd(QWidget *parent);
     ~WidgetLcd();
 
-    void restart();
+    void local_test();
+
+public slots:
+    void write(bool rs, uint8_t d);
 
 private:
     void paintEvent(QPaintEvent *) override;

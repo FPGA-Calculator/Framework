@@ -1,4 +1,5 @@
 #include "WidgetLcd.h"
+#include <QDebug>
 
 WidgetLcd::WidgetLcd(QWidget *parent) : QLabel(parent)
 {
@@ -26,7 +27,7 @@ void WidgetLcd::paintEvent(QPaintEvent *)
 
     painter.drawImage(QRect(0, 0, width(), height()), lcd_image);
 
-    const int xstart = 78;
+    const int xstart = 76;
     const int ystart = 90;
 
     const int numPixelsX = vrEmuLcdNumPixelsX(m_lcd);
@@ -46,7 +47,19 @@ void WidgetLcd::paintEvent(QPaintEvent *)
     }
 }
 
-void WidgetLcd::restart()
+void WidgetLcd::write(bool rs, uint8_t d)
+{
+    qDebug() << "RS:" << rs << " data:" << Qt::hex << d << " " << char(isprint(d) ? d : ' ');
+    if (rs)
+        vrEmuLcdWriteByte(m_lcd, d);
+    else
+        vrEmuLcdSendCommand(m_lcd, d);
+
+    vrEmuLcdUpdatePixels(m_lcd);
+    update();
+}
+
+void WidgetLcd::local_test()
 {
     vrEmuLcdSendCommand(m_lcd, 0b00110000); // set data to Function Set instruction
     vrEmuLcdSendCommand(m_lcd, 0b00111000); // Configuration: 8-bit, 2 lines, 5x7 font
