@@ -42,7 +42,7 @@ lcd lcd(
     .busy_flag(lcd_busy)
 );
 
-rom rom(
+async_rom #(.ROM_FILE("lcd_cmd.txt")) rom(
     .rom_in(rom_in),
     .rom_out(d_in)
 );

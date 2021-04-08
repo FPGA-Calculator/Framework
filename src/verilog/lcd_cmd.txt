@@ -1,0 +1,18 @@
+// This is a memory initialization file containing LCD commands
+// to output 'Hello World'
+010000000 // Set address 0 (first char / first line)
+101001000
+101100101
+101101100
+101101100
+101101111
+011000000 // Set address 40h (first char / second line)
+101010111
+101101111
+101110010
+101101100
+101100100
+100100000
+010001110 // Leave cursor at the last char / first line
+100100000 // Need to write a char to make cursor visible
+011000000 // Set address 40h (first char / second line)

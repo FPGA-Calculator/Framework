@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>vrEmuLcd.gif</file>
+        <file alias="lcd_cmd">../verilog/lcd_cmd.txt</file>
     </qresource>
 </RCC>
