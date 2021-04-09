@@ -1,45 +1,48 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# The Framework
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+## _Building the framework for the Calculator project_
+This code accompanies the Calculator project described in this [blog].
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+## Build Tools
+The project uses several tools that need to be installed separately:
 
----
+* Quartus synthesis tool for Altera FPGA devices ([Install][Quartus] version 13.0 SP1 to support Cyclone II device)
+* Verilator ([Install][verilator], suggested to install TOT and recompile it yourself)
+* Qt ([Install][Qt] version 5.15.x and support for desktop and WebAssembly targets
 
-## Edit a file
+Altough you could set everything up in Linux, the development was done in Windows 10 with WSL2 (Windows Subsystem for Linux) running Verilator. The setup is explained in more details [in a blog post here][blog]
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Build
+The same Verilog sources are build using different tools, for different purpose.
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+### FPGA
+Load `quartus/*.qpf` project file into Quartus as a project; synthesise and flash the bitstream into a designated board. This project is designed around a [Cyclone II EP2C5 "Mini" dev board][devboard], but you should be able to use any other board or even pick a different FPGA vendor. The source files use generic SystemVerilog and there is nothing specific tying it to this particular board except the pin assignment.
 
----
+### Verilate
+Verilator is used to compile Verilog code into C++. There are two different makefiles depending on what we want to do with the software:
 
-## Create a file
+* Compile it, and then run it for a limited number of cycles (until the LCD initializes and prints "Hello World"). Since this a default makefile, there is no need to specify it on the command line. **Note**: this will also run it with trace and coverage turned on, and will produce a large trace file which you can view using gtkwave.
+```sh
+make
+```
 
-Next, you’ll add a new file to this repository.
+* Only compile Verilog code into C++ sources and do nothing. You need to do this step before trying to compile the project in Qt since it generates required verilated files.
+```sh
+make -f MakefileQt
+```
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+### Qt
+Qt compiles verilated sources along with its supporting project files into a software application. The intent is to designate two primary target platforms (which you have to manually do when you load the project in QtCreator):
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+1. Desktop application
+2. WebAssembly target
 
----
+Both targets allow you to run the Verilog code wrapped as a software app. You see what's displayed on the LCD screen, observe the state of 3 LEDs and also interact with a push-button.
 
-## Clone a repository
+The WebAssembly project could be opened on the local PC (QtCreator will do that for you when you run the app), or it could be copied to a web server and loaded from there by pointing your browser to the generated files. The code should run in a web browser at the native speed after being quickly compiled on the client-side (today all major browsers support WebAssembly).
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+[Quartus]: <https://fpgasoftware.intel.com/13.0sp1/>
+[verilator]: <https://www.veripool.org/projects/verilator/wiki/Installing>
+[qt]: <https://www.qt.io/download>
+[blog]: <https://baltazarstudios.com/calculator4>
+[devboard]: <http://land-boards.com/blwiki/index.php?title=Cyclone_II_EP2C5_Mini_Dev_Board>
