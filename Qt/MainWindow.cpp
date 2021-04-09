@@ -20,9 +20,7 @@ MainWindow::MainWindow(ClassSim *sim) : QMainWindow(nullptr), ui(new Ui::MainWin
     QTimer::singleShot(1000, m_lcd, &WidgetLcd::local_test);
 #endif // LCD_TEST
 
-    m_timer = new QTimer(this);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(periodic()));
-    m_timer->start(100);
+    m_timer.start(100, this);
 }
 
 MainWindow::~MainWindow()
@@ -30,13 +28,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::periodic()
+// TODO: This is not the correct way to run a (simulation) process continuously
+void MainWindow::timerEvent(QTimerEvent *event)
 {
     int ret = m_sim->run(5000000);
     if (ret == 1)
     {
         qDebug() << "Simulation finished";
-        m_timer->stop();
+        m_timer.stop();
     }
 }
 

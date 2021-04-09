@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTimer>
+#include <QBasicTimer>
 #include "ClassSim.h"
 #include "WidgetLcd.h"
 #include "WidgetLed.h"
@@ -20,13 +20,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void periodic();
     void led_update(quint8 led);
+    void timerEvent(QTimerEvent *event) override;
 
 private:
     Ui::MainWindow *ui;
     ClassSim *m_sim;
-    QTimer *m_timer;
+    QBasicTimer m_timer;
 
     WidgetLcd *m_lcd;
     WidgetLed *m_led0;
