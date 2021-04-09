@@ -1,13 +1,8 @@
-# -*- Makefile -*-
 #######################################################################
 #
-# DESCRIPTION: Verilator Example: Makefile for inside object directory
+# DESCRIPTION: Verilator Makefile for inside object directory
 #
 # This is executed in the object directory, and called by ../Makefile
-#
-# This file ONLY is placed under the Creative Commons Public Domain, for
-# any use, without warranty, 2020 by Wilson Snyder.
-# SPDX-License-Identifier: CC0-1.0
 #
 #######################################################################
 
@@ -31,7 +26,7 @@ CPPFLAGS += -DVL_DEBUG=1
 # Turn on some more compiler lint flags (when configured appropriately)
 # For testing inside Verilator, "configure --enable-ccwarn" will do this
 # automatically; otherwise you may want this unconditionally enabled
-ifeq ($(CFG_WITH_CCWARN),yes)	# Local... Else don't burden users
+ifeq ($(CFG_WITH_CCWARN),yes)	# Local... Else do not burden users
 USER_CPPFLAGS_WALL += -W -Werror -Wall
 endif
 

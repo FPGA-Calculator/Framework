@@ -1,21 +1,7 @@
 ######################################################################
 #
-# DESCRIPTION: Verilator Example: Small Makefile
+# DESCRIPTION: Verilator build
 #
-# This calls the object directory makefile.  That allows the objects to
-# be placed in the "current directory" which simplifies the Makefile.
-#
-# This file ONLY is placed under the Creative Commons Public Domain, for
-# any use, without warranty, 2020 by Wilson Snyder.
-# SPDX-License-Identifier: CC0-1.0
-#
-######################################################################
-# Check for sanity to avoid later confusion
-
-ifneq ($(words $(CURDIR)),1)
- $(error Unsupported: GNU Make cannot build in directories containing spaces, build elsewhere: '$(CURDIR)')
-endif
-
 ######################################################################
 # Set up variables
 
@@ -60,9 +46,6 @@ default: run
 
 run:
 	@echo
-	@echo "-- Verilator tracing example"
-
-	@echo
 	@echo "-- VERILATE ----------------"
 	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT)
 
@@ -79,7 +62,8 @@ run:
 	@echo "-- RUN ---------------------"
 	@rm -rf logs
 	@mkdir -p logs
-	obj_dir/Vtop +trace
+#	obj_dir/Vtop +trace
+	obj_dir/Vtop           # Run without generating the trace
 
 	@echo
 	@echo "-- COVERAGE ----------------"
@@ -88,7 +72,7 @@ run:
 
 	@echo
 	@echo "-- DONE --------------------"
-	@echo "To see waveforms, open vlt_dump.vcd in a waveform viewer"
+	@echo "If generated, to see a  waveform, open vlt_dump.vcd in gtkwave viewer"
 	@echo
 
 
