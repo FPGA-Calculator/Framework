@@ -14,9 +14,11 @@ INCLUDEPATH += $$PWD/../verilog/obj_dir
 SOURCES += \
     ../verilator/include/verilated.cpp \
     ../verilog/obj_dir/Vtop.cpp \
-    ../verilog/obj_dir/Vtop__ALL.cpp \
+    ../verilog/obj_dir/Vtop__Slow.cpp \
+    ../verilog/obj_dir/Vtop__Syms.cpp \
     ClassSim.cpp \
     WidgetLcd.cpp \
+    WidgetLed.cpp \
     main.cpp \
     MainWindow.cpp \
     vrEmuLcd.cpp
@@ -27,6 +29,7 @@ HEADERS += \
     ClassSim.h \
     MainWindow.h \
     WidgetLcd.h \
+    WidgetLed.h \
     font.h \
     vrEmuLcd.h
 

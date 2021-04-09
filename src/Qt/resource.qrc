@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>vrEmuLcd.gif</file>
         <file alias="lcd_cmd">../verilog/lcd_cmd.txt</file>
+        <file alias="led0">led0.png</file>
+        <file alias="led1">led1.png</file>
     </qresource>
 </RCC>

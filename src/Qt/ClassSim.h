@@ -15,9 +15,11 @@ public:
     ~ClassSim();
 
     int run(ulong ticks);
+    void set_button(bool state) { button_state = state; }
 
 signals:
-    void lcd_write(bool rs, uint8_t d);
+    void lcd_write(bool rs, quint8 d);
+    void led_changed(quint8 led);
 
 private:
     // Using unique_ptr is similar to
@@ -30,6 +32,8 @@ private:
     const std::unique_ptr<Vtop> top {new Vtop{contextp.get(), "TOP"}};
 
     bool lastE {};
+    quint8 lastLED;
+    bool button_state {1};
 };
 
 #endif // CLASSSIM_H

@@ -29,8 +29,11 @@ always_ff @(posedge clock) begin
         halt <= 1;
         data_ready <= 0;
         rom_address <= 0;
+`ifndef QT
         $write("*-* Finished *-*\n");
         $finish;
+`endif
+
     end
 
     // Prevent the system from sending the first character during initialization

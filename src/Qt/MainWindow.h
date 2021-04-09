@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "ClassSim.h"
 #include "WidgetLcd.h"
+#include "WidgetLed.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,11 +21,16 @@ public:
 
 private slots:
     void periodic();
+    void led_update(quint8 led);
 
 private:
     Ui::MainWindow *ui;
-    WidgetLcd *m_lcd;
     ClassSim *m_sim;
     QTimer *m_timer;
+
+    WidgetLcd *m_lcd;
+    WidgetLed *m_led0;
+    WidgetLed *m_led1;
+    WidgetLed *m_led2;
 };
 #endif // MAINWINDOW_H

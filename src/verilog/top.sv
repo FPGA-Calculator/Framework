@@ -9,7 +9,8 @@ module top
     input BUTTON,
     output RS,
     output E,
-    output [7:0] D
+    output [7:0] D,
+    output LED[2:0]
 );
 
 reg internal_reset = 0;
@@ -72,5 +73,30 @@ always_ff @ (posedge CLOCK_50) begin
         internal_reset <= 0;
     end
 end
+
+//----------------------------------------------------------------------------
+// Drives 3 LEDs on the test board:
+// LED2: synchronous button read, without debounce
+// LED1: shows the reset + LCD initialization duration
+// LED0: blinks with a period of 1s (based on the 50MHz input clock)
+
+logic [31:0] counter = 0;
+logic button = 1;
+logic blink = 0;
+
+always_ff @(posedge CLOCK_50) begin
+    if (counter == (50000000 / 2)) begin
+        counter <= 0;
+        blink <= ~blink;
+    end
+    else
+        counter <= counter + 1;
+end
+
+always_ff @(posedge CLOCK_50) begin
+    button <= BUTTON;
+end
+
+assign {LED[2], LED[1], LED[0]} = {button, clean_signal, blink};
 
 endmodule

@@ -59,6 +59,7 @@ void WidgetLcd::write(bool rs, uint8_t d)
     update();
 }
 
+#if LCD_TEST
 void WidgetLcd::local_test()
 {
     vrEmuLcdSendCommand(m_lcd, 0b00110000); // set data to Function Set instruction
@@ -89,3 +90,4 @@ void WidgetLcd::local_test()
 
     update();
 }
+#endif // LCD_TEST
