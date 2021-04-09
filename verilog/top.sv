@@ -12,6 +12,8 @@ module top
     output [7:0] D,
     output LED[2:0]
 );
+// Define the output trace file, which, as a parameter, can be overriden
+parameter TRACE_FILE="logs/vlt_dump.vcd";
 
 reg internal_reset = 0;
 reg last_signal = 0;
@@ -24,8 +26,8 @@ wire [3:0] rom_in;
 `ifndef QUARTUS
 initial begin
     if ($test$plusargs("trace") != 0) begin
-        $display("[%0t] Tracing to logs/vlt_dump.vcd...\n", $time);
-        $dumpfile("logs/vlt_dump.vcd");
+        $display("[%0t] Tracing file: %s\n", $time, TRACE_FILE);
+        $dumpfile(TRACE_FILE);
         $dumpvars();
     end
         $display("[%0t] Model running...\n", $time);

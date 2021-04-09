@@ -5,6 +5,9 @@
 ######################################################################
 # Set up variables
 
+# Change default file of the generated trace. This file can get very large.
+TRACE_FILE = \"trace.vcd\"
+
 # If $VERILATOR_ROOT isn't in the environment, we assume it is part of a
 # package install, and verilator is in your path. Otherwise find the
 # binary relative to $VERILATOR_ROOT (such as when inside the git sources).
@@ -37,6 +40,8 @@ VERILATOR_FLAGS += --coverage
 #VERILATOR_FLAGS += --debug
 # Add this trace to get a backtrace in gdb
 #VERILATOR_FLAGS += --gdbbt
+# Change a top module parameter that defines the trace file
+VERILATOR_FLAGS += -GTRACE_FILE=$(TRACE_FILE)
 
 # Input files for Verilator
 VERILATOR_INPUT = -f input.vc top.sv controller.sv debounce.sv async_rom.sv lcd.sv sim_main.cpp
@@ -72,7 +77,7 @@ run:
 
 	@echo
 	@echo "-- DONE --------------------"
-	@echo "If generated, to see a  waveform, open vlt_dump.vcd in gtkwave viewer"
+	@echo "If generated, to see a  waveform, open $(TRACE_FILE) in gtkwave viewer"
 	@echo
 
 
