@@ -45,7 +45,7 @@ set_instance_assignment -name IO_STANDARD LVTTL -to CLOCK_50
 ###########################################################################
 set_location_assignment PIN_144 -to BUTTON
 set_instance_assignment -name IO_STANDARD LVTTL -to BUTTON
-# set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to BUTTON
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to BUTTON
 
 ###########################################################################
 # LEDs
