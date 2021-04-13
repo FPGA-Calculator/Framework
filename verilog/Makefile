@@ -89,4 +89,4 @@ show-config:
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
-	-rm -rf obj_dir logs *.log *.dmp *.vpd coverage.dat core
+	-rm -rf include obj_dir logs *.log *.dmp *.vpd coverage.dat core
