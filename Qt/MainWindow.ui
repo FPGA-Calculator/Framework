@@ -157,7 +157,7 @@
   <customwidget>
    <class>WidgetLcd</class>
    <extends>QWidget</extends>
-   <header>widgetlcd.h</header>
+   <header>WidgetLcd.h</header>
   </customwidget>
   <customwidget>
    <class>WidgetLed</class>
