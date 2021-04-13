@@ -2,6 +2,13 @@
 #
 # DESCRIPTION: Verilator build for Qt framework
 #
+# NOTE: VERILATOR_ROOT either needs to be defined, or the default install
+#       folder /usr/local/share/verilator will be used to copy include
+#       files from it.
+#
+# NOTE: Qt build needs "#include <array>" to be added to verilated.h
+#       and this makefile does it after copying the include files over.
+#
 ######################################################################
 # Set up variables
 
@@ -9,6 +16,9 @@
 # package install, and verilator is in your path. Otherwise find the
 # binary relative to $VERILATOR_ROOT (such as when inside the git sources).
 ifeq ($(VERILATOR_ROOT),)
+# If $VERILATOR_ROOT isn't in the environment, assume the default install
+# location. We need that location to copy the include files from it.
+VERILATOR_ROOT = /usr/local/share/verilator
 VERILATOR = verilator
 VERILATOR_COVERAGE = verilator_coverage
 else
@@ -42,9 +52,21 @@ VERILATOR_FLAGS += --assert
 VERILATOR_INPUT = -f input.vc top.sv controller.sv debounce.sv async_rom.sv lcd.sv sim_main.cpp
 
 ######################################################################
-default: run
+# Copy the include files from the verilator install location so they can be used
+# by the Qt build. Also, prepend one include statement since Qt requires it at the moment.
 
-run:
+default: copy-includes correct-verilated compile
+
+copy-includes:
+	@echo "Copy verilator include files from" $(VERILATOR_ROOT)/include
+	@cp -R $(VERILATOR_ROOT)/include .
+
+correct-verilated:
+	@echo "Prepend '#include <array>' to include/verilated.h"
+	@sed -i '0,/^/s//#include <array>\n/' include/verilated.h
+
+compile:
+	@echo "Create verilated sources"
 	$(VERILATOR) $(VERILATOR_FLAGS) -DQT=1 $(VERILATOR_INPUT)
 
 ######################################################################
@@ -55,4 +77,4 @@ show-config:
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
-	-rm -rf obj_dir logs *.log *.dmp *.vpd coverage.dat core
+	-rm -rf include obj_dir logs *.log *.dmp *.vpd coverage.dat core

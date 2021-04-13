@@ -8,11 +8,11 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-INCLUDEPATH += $$PWD/../verilator/include
+INCLUDEPATH += $$PWD/../verilog/include
 INCLUDEPATH += $$PWD/../verilog/obj_dir
 
 SOURCES += \
-    ../verilator/include/verilated.cpp \
+    ../verilog/include/verilated.cpp \
     ../verilog/obj_dir/Vtop.cpp \
     ../verilog/obj_dir/Vtop__Slow.cpp \
     ../verilog/obj_dir/Vtop__Syms.cpp \
@@ -24,7 +24,7 @@ SOURCES += \
     vrEmuLcd.cpp
 
 HEADERS += \
-    ../verilator/include/verilated.h \
+    ../verilog/include/verilated.h \
     ../verilog/obj_dir/Vtop.h \
     ClassSim.h \
     MainWindow.h \
