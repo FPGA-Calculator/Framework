@@ -50,7 +50,7 @@ int ClassSim::run(ulong ticks)
         }
 
         // If the LED state changed, emit the change
-        quint8 led = (top->LED[2] << 2) | (top->LED[1] << 1) | (top->LED[0] << 0);
+        quint8 led = top->LED & 0b111;
         if (led != lastLED)
         {
             emit led_changed(led);
