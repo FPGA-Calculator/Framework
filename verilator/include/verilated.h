@@ -45,7 +45,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <array>
 // <iostream> avoided to reduce compile time
 // <map> avoided and instead in verilated_heavy.h to reduce compile time
 // <string> avoided and instead in verilated_heavy.h to reduce compile time
@@ -76,37 +75,38 @@
 #endif
 // clang-format on
 
-//=========================================================================
-// Basic types
-
-// clang-format off
-//                   P          // Packed data of bit type (C/S/I/Q/W)
-typedef vluint8_t    CData;     ///< Verilated pack data, 1-8 bits
-typedef vluint16_t   SData;     ///< Verilated pack data, 9-16 bits
-typedef vluint32_t   IData;     ///< Verilated pack data, 17-32 bits
-typedef vluint64_t   QData;     ///< Verilated pack data, 33-64 bits
-typedef vluint32_t   EData;     ///< Verilated pack element of WData array
-typedef EData        WData;     ///< Verilated pack data, >64 bits, as an array
-//      float        F          // No typedef needed; Verilator uses float
-//      double       D          // No typedef needed; Verilator uses double
-//      string       N          // No typedef needed; Verilator uses string
-// clang-format on
-
-typedef const WData* WDataInP;  ///< Array input to a function
-typedef WData* WDataOutP;  ///< Array output from a function
-
 class VerilatedContextImp;
 class VerilatedContextImpData;
 class VerilatedCovContext;
 class VerilatedEvalMsgQueue;
+class VerilatedFst;
+class VerilatedFstC;
+class VerilatedScope;
 class VerilatedScopeNameMap;
 class VerilatedVar;
 class VerilatedVarNameMap;
 class VerilatedVcd;
 class VerilatedVcdC;
 class VerilatedVcdSc;
-class VerilatedFst;
-class VerilatedFstC;
+
+//=========================================================================
+// Basic types
+
+// clang-format off
+//    P                     // Packed data of bit type (C/S/I/Q/W)
+using CData = vluint8_t;    ///< Data representing 'bit' of 1-8 packed bits
+using SData = vluint16_t;   ///< Data representing 'bit' of 9-16 packed bits
+using IData = vluint32_t;   ///< Data representing 'bit' of 17-32 packed bits
+using QData = vluint64_t;   ///< Data representing 'bit' of 33-64 packed bits
+using EData = vluint32_t;   ///< Data representing one element of WData array
+using WData = EData;        ///< Data representing >64 packed bits (used as pointer)
+//    F     = float;        // No typedef needed; Verilator uses float
+//    D     = double;       // No typedef needed; Verilator uses double
+//    N     = std::string;  // No typedef needed; Verilator uses string
+// clang-format on
+
+using WDataInP = const WData*;  ///< 'bit' of >64 packed bits as array input to a function
+using WDataOutP = WData*;  ///< 'bit' of >64 packed bits as array output from a function
 
 enum VerilatedVarType : vluint8_t {
     VLVT_UNKNOWN = 0,
@@ -219,7 +219,7 @@ public:
 class VerilatedAssertOneThread final {
     // MEMBERS
 #if defined(VL_THREADED) && defined(VL_DEBUG)
-    vluint32_t m_threadid;  /// Thread that is legal
+    vluint32_t m_threadid;  // Thread that is legal
 public:
     // CONSTRUCTORS
     // The constructor establishes the thread id for all later calls.
@@ -246,9 +246,7 @@ public:
 };
 
 //=========================================================================
-/// Base class for all Verilated module classes
-
-class VerilatedScope;
+/// Base class for all Verilated module classes.
 
 class VerilatedModule VL_NOT_FINAL {
     VL_UNCOPYABLE(VerilatedModule);
@@ -256,7 +254,7 @@ class VerilatedModule VL_NOT_FINAL {
 private:
     const char* m_namep;  // Module name
 public:
-    explicit VerilatedModule(const char* namep);  ///< Create module with given hierarchy name
+    explicit VerilatedModule(const char* namep);  // Create module with given hierarchy name
     ~VerilatedModule();
     const char* name() const { return m_namep; }  ///< Return name of module
 };
@@ -287,7 +285,7 @@ public:
 
 #define VL_CELL(instname, type)  ///< Declare a cell, ala SP_CELL
 
-/// Declare a module, ala SC_MODULE
+///< Declare a module, ala SC_MODULE
 #define VL_MODULE(modname) class modname VL_NOT_FINAL : public VerilatedModule
 // Not class final in VL_MODULE, as users might be abstracting our models (--hierarchical)
 
@@ -471,6 +469,8 @@ public:
     int randSeed() const VL_MT_SAFE { return m_s.m_randSeed; }
 
     // Time handling
+    /// Returns current simulation time.
+    ///
     /// How Verilator runtime gets the current simulation time:
     ///
     /// * If using SystemC, time comes from the SystemC kernel-defined
@@ -554,8 +554,8 @@ public:  // But for internal use only
 };
 
 //===========================================================================
-/// Verilator symbol table base class
-/// Used for internal VPI implementation, and introspection into scopes
+// Verilator symbol table base class
+// Used for internal VPI implementation, and introspection into scopes
 
 class VerilatedSyms VL_NOT_FINAL {
 public:  // But for internal use only
@@ -570,8 +570,8 @@ public:  // But for internal use only
 };
 
 //===========================================================================
-/// Verilator scope information class
-/// Used for internal VPI implementation, and introspection into scopes
+// Verilator scope information class
+// Used for internal VPI implementation, and introspection into scopes
 
 class VerilatedScope final {
 public:
@@ -841,7 +841,7 @@ public:
 public:
     // METHODS - INTERNAL USE ONLY (but public due to what uses it)
     // Internal: Create a new module name by concatenating two strings
-    static const char* catName(const char* n1, const char* n2,
+    static const char* catName(const char* n1, const char* n2, int scopet = 0,
                                const char* delimiter = ".");  // Returns static data
 
     // Internal: Throw signal assertion
@@ -1009,18 +1009,18 @@ extern const char* vl_mc_scan_plusargs(const char* prefixp);  // PLIish
 //=========================================================================
 // Base macros
 
-/// Return true if data[bit] set; not 0/1 return, but 0/non-zero return.
+// Return true if data[bit] set; not 0/1 return, but 0/non-zero return.
 #define VL_BITISSET_I(data, bit) ((data) & (VL_UL(1) << VL_BITBIT_I(bit)))
 #define VL_BITISSET_Q(data, bit) ((data) & (1ULL << VL_BITBIT_Q(bit)))
 #define VL_BITISSET_E(data, bit) ((data) & (VL_EUL(1) << VL_BITBIT_E(bit)))
 #define VL_BITISSET_W(data, bit) ((data)[VL_BITWORD_E(bit)] & (VL_EUL(1) << VL_BITBIT_E(bit)))
 #define VL_BITISSETLIMIT_W(data, width, bit) (((bit) < (width)) && VL_BITISSET_W(data, bit))
 
-/// Shift appropriate word by bit. Does not account for wrapping between two words
+// Shift appropriate word by bit. Does not account for wrapping between two words
 #define VL_BITRSHIFT_W(data, bit) ((data)[VL_BITWORD_E(bit)] >> VL_BITBIT_E(bit))
 
-/// Create two 32-bit words from quadword
-/// WData is always at least 2 words; does not clean upper bits
+// Create two 32-bit words from quadword
+// WData is always at least 2 words; does not clean upper bits
 #define VL_SET_WQ(owp, data) \
     do { \
         (owp)[0] = static_cast<IData>(data); \
@@ -1139,8 +1139,8 @@ extern int VL_TIME_STR_CONVERT(const char* strp) VL_PURE;
 # endif
 #endif
 
-/// Return current simulation time
 #if defined(SYSTEMC_VERSION)
+/// Return current simulation time
 // Already defined: extern sc_time sc_time_stamp();
 inline vluint64_t vl_time_stamp64() { return sc_time_stamp().value(); }
 #else  // Non-SystemC
@@ -1188,8 +1188,8 @@ inline vluint64_t VerilatedContext::time() const VL_MT_SAFE {
 // Return time precision as multiplier of time units
 double vl_time_multiplier(int scale) VL_PURE;
 
-/// Evaluate statement if debug enabled
 #ifdef VL_DEBUG
+/// Evaluate statement if Verilated::debug() enabled
 # define VL_DEBUG_IF(stmt) \
     do { \
         if (VL_UNLIKELY(Verilated::debug())) {stmt} \
@@ -2769,7 +2769,7 @@ static inline WDataOutP VL_SEL_WWII(int obits, int lbits, int, int, WDataOutP ow
 //======================================================================
 // Math needing insert/select
 
-/// Return QData from double (numeric)
+// Return QData from double (numeric)
 // EMIT_RULE: VL_RTOIROUND_Q_D:  oclean=dirty; lclean==clean/real
 static inline QData VL_RTOIROUND_Q_D(int, double lhs) VL_PURE {
     // IEEE format: [63]=sign [62:52]=exp+1023 [51:0]=mantissa

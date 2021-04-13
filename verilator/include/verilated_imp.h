@@ -49,7 +49,7 @@ class VerilatedScope;
 // Threaded message passing
 
 #ifdef VL_THREADED
-/// Message, enqueued on an mtask, and consumed on the main eval thread
+// Message, enqueued on an mtask, and consumed on the main eval thread
 class VerilatedMsg final {
 public:
     // TYPES
@@ -75,13 +75,13 @@ public:
     VerilatedMsg& operator=(VerilatedMsg&&) = default;
     // METHODS
     vluint32_t mtaskId() const { return m_mtaskId; }
-    /// Execute the lambda function
+    // Execute the lambda function
     void run() const { m_cb(); }
 };
 
-/// Each thread has a queue it pushes to
-/// This assumes no thread starts pushing the next tick until the previous has drained.
-/// If more aggressiveness is needed, a double-buffered scheme might work well.
+// Each thread has a queue it pushes to
+// This assumes no thread starts pushing the next tick until the previous has drained.
+// If more aggressiveness is needed, a double-buffered scheme might work well.
 class VerilatedEvalMsgQueue final {
     using VerilatedThreadQueue = std::multiset<VerilatedMsg, VerilatedMsg::Cmp>;
 
@@ -102,13 +102,13 @@ private:
 
 public:
     // METHODS
-    //// Add message to queue (called by producer)
+    // Add message to queue (called by producer)
     void post(const VerilatedMsg& msg) VL_MT_SAFE_EXCLUDES(m_mutex) {
         const VerilatedLockGuard lock(m_mutex);
         m_queue.insert(msg);  // Pass by value to copy the message into queue
         ++m_depth;
     }
-    /// Service queue until completion (called by consumer)
+    // Service queue until completion (called by consumer)
     void process() VL_MT_SAFE_EXCLUDES(m_mutex) {
         // Tracking m_depth is redundant to e.g. getting the mutex and looking at queue size,
         // but on the reader side it's 4x faster to test an atomic then getting a mutex
@@ -133,7 +133,7 @@ public:
     }
 };
 
-/// Each thread has a local queue to build up messages until the end of the eval() call
+// Each thread has a local queue to build up messages until the end of the eval() call
 class VerilatedThreadMsgQueue final {
     std::queue<VerilatedMsg> m_queue;
 
@@ -154,7 +154,7 @@ private:
     }
 
 public:
-    /// Add message to queue, called by producer
+    // Add message to queue, called by producer
     static void post(const VerilatedMsg& msg) VL_MT_SAFE {
         // Handle calls to threaded routines outside
         // of any mtask -- if an initial block calls $finish, say.
@@ -166,7 +166,7 @@ public:
             threadton().m_queue.push(msg);  // Pass by value to copy the message into queue
         }
     }
-    /// Push all messages to the eval's queue
+    // Push all messages to the eval's queue
     static void flush(VerilatedEvalMsgQueue* evalMsgQp) VL_MT_SAFE {
         while (!threadton().m_queue.empty()) {
             evalMsgQp->post(threadton().m_queue.front());
@@ -204,7 +204,7 @@ class VerilatedContextImpData final {
     friend class VerilatedContextImp;
 
 protected:
-    /// Map of <scope_name, scope pointer>
+    // Map of <scope_name, scope pointer>
     // Used by scopeInsert, scopeFind, scopeErase, scopeNameMap
     mutable VerilatedMutex m_nameMutex;  // Protect m_nameMap
     VerilatedScopeNameMap m_nameMap VL_GUARDED_BY(m_nameMutex);
@@ -280,12 +280,12 @@ public:  // But only for verilated*.cpp
         if (m_fdFreeMct.empty()) return 0;
         IData idx = m_fdFreeMct.back();
         m_fdFreeMct.pop_back();
-        m_fdps[idx] = fopen(filenamep, "w");
+        m_fdps[idx] = std::fopen(filenamep, "w");
         if (VL_UNLIKELY(!m_fdps[idx])) return 0;
         return (1 << idx);
     }
     IData fdNew(const char* filenamep, const char* modep) VL_MT_SAFE_EXCLUDES(m_fdMutex) {
-        FILE* fp = fopen(filenamep, modep);
+        FILE* fp = std::fopen(filenamep, modep);
         if (VL_UNLIKELY(!fp)) return 0;
         // Bit 31 indicates it's a descriptor not a MCD
         const VerilatedLockGuard lock(m_fdMutex);
@@ -308,20 +308,20 @@ public:  // But only for verilated*.cpp
     void fdFlush(IData fdi) VL_MT_SAFE_EXCLUDES(m_fdMutex) {
         const VerilatedLockGuard lock(m_fdMutex);
         const VerilatedFpList fdlist = fdToFpList(fdi);
-        for (const auto& i : fdlist) fflush(i);
+        for (const auto& i : fdlist) std::fflush(i);
     }
     IData fdSeek(IData fdi, IData offset, IData origin) VL_MT_SAFE_EXCLUDES(m_fdMutex) {
         const VerilatedLockGuard lock(m_fdMutex);
         const VerilatedFpList fdlist = fdToFpList(fdi);
         if (VL_UNLIKELY(fdlist.size() != 1)) return 0;
         return static_cast<IData>(
-            fseek(*fdlist.begin(), static_cast<long>(offset), static_cast<int>(origin)));
+            std::fseek(*fdlist.begin(), static_cast<long>(offset), static_cast<int>(origin)));
     }
     IData fdTell(IData fdi) VL_MT_SAFE_EXCLUDES(m_fdMutex) {
         const VerilatedLockGuard lock(m_fdMutex);
         const VerilatedFpList fdlist = fdToFpList(fdi);
         if (VL_UNLIKELY(fdlist.size() != 1)) return 0;
-        return static_cast<IData>(ftell(*fdlist.begin()));
+        return static_cast<IData>(std::ftell(*fdlist.begin()));
     }
     void fdWrite(IData fdi, const std::string& output) VL_MT_SAFE_EXCLUDES(m_fdMutex) {
         const VerilatedLockGuard lock(m_fdMutex);
@@ -338,14 +338,14 @@ public:  // But only for verilated*.cpp
             IData idx = VL_MASK_I(31) & fdi;
             if (VL_UNLIKELY(idx >= m_fdps.size())) return;
             if (VL_UNLIKELY(!m_fdps[idx])) return;  // Already free
-            fclose(m_fdps[idx]);
+            std::fclose(m_fdps[idx]);
             m_fdps[idx] = (FILE*)0;
             m_fdFree.push_back(idx);
         } else {
             // MCD case
             for (int i = 0; (fdi != 0) && (i < 31); i++, fdi >>= 1) {
                 if (fdi & VL_MASK_I(1)) {
-                    fclose(m_fdps[i]);
+                    std::fclose(m_fdps[i]);
                     m_fdps[i] = nullptr;
                     m_fdFreeMct.push_back(i);
                 }
@@ -474,7 +474,7 @@ public:
     }
 
 public:  // But only for verilated.cpp
-    /// Symbol table destruction cleans up the entries for each scope.
+    // Symbol table destruction cleans up the entries for each scope.
     static void userEraseScope(const VerilatedScope* scopep) VL_MT_SAFE {
         // Slow ok - called once/scope on destruction, so we simply iterate.
         const VerilatedLockGuard lock(s().m_userMapMutex);
