@@ -30,4 +30,4 @@ always_ff @(posedge clk) begin
     end
 end
 
-endmodule
+endmodule : debounce

@@ -21,4 +21,4 @@ initial
 
 assign rom_out = rom_data[rom_in];
 
-endmodule
+endmodule : async_rom

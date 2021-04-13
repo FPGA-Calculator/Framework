@@ -61,4 +61,4 @@ always_ff @(posedge clock) begin
     end
 end
 
-endmodule
+endmodule : controller

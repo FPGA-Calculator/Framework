@@ -391,4 +391,4 @@ always_ff @(posedge clock) begin
     endcase
 end
 
-endmodule
+endmodule : lcd

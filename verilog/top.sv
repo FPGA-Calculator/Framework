@@ -101,4 +101,4 @@ end
 
 assign {LED[2], LED[1], LED[0]} = {button, clean_signal, blink};
 
-endmodule
+endmodule : top
