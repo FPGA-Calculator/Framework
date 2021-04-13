@@ -10,14 +10,13 @@ module async_rom
                 ADDR_WIDTH = 4,
                 ROM_FILE = "")  // ROM content read by $readmemb
 (
-    input  logic [ADDR_WIDTH-1:0] rom_in,  // Address input
+    input wire logic [ADDR_WIDTH-1:0] rom_in,  // Address input
     output logic [DATA_WIDTH-1:0] rom_out  // Data output
 );
 
-logic [DATA_WIDTH-1:0] rom_data [0:2**ADDR_WIDTH-1];
+initial $readmemb(ROM_FILE, rom_data);
 
-initial
-    $readmemb(ROM_FILE, rom_data);
+logic [DATA_WIDTH-1:0] rom_data [0:2**ADDR_WIDTH-1];
 
 assign rom_out = rom_data[rom_in];
 

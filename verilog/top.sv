@@ -5,23 +5,23 @@
 
 module top
 (
-    input CLOCK_50,
-    input BUTTON,
-    output RS,
-    output E,
-    output [7:0] D,
-    output LED[2:0]
+    input wire CLOCK_50,
+    input wire BUTTON,
+    output logic RS,
+    output logic E,
+    output logic [7:0] D,
+    output logic [2:0] LED
 );
 // Define the output trace file, which, as a parameter, can be overriden
 parameter TRACE_FILE="logs/vlt_dump.vcd";
 
 reg internal_reset = 0;
 reg last_signal = 0;
-wire clean_signal;
-wire data_ready;
-wire lcd_busy;
-wire [8:0] d_in;
-wire [3:0] rom_in;
+logic clean_signal;
+logic data_ready;
+logic lcd_busy;
+logic [8:0] d_in;
+logic [3:0] rom_in;
 
 `ifndef QUARTUS
 initial begin

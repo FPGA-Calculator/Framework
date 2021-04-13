@@ -4,9 +4,9 @@
 `default_nettype none
 
 module controller (
-    input clock,
-    input lcd_busy,
-    input internal_reset,
+    input wire clock,
+    input wire lcd_busy,
+    input wire internal_reset,
     output reg [3:0] rom_address = 0,
     output reg data_ready = 0
 );

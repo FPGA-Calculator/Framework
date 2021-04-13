@@ -4,16 +4,13 @@
 `default_nettype none
 
 module debounce (
-    input clk,
-    input in,
-    output reg out
+    input wire clk,
+    input wire in,
+    output logic out
 );
 
-wire delta;
-reg [19:0] timer;
-
-initial timer = 0;
-initial out = 0;
+logic delta;
+logic [19:0] timer = 0;
 
 assign delta = in ^ out;
 

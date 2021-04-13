@@ -22,10 +22,10 @@
 // Please see robotics.hobbizine/fpgalcd.html for a full discussion.
 
 module lcd(
-    input clock,
-    input internal_reset,
-    input [8:0] d_in,
-    input data_ready,
+    input wire clock,
+    input wire internal_reset,
+    input wire [8:0] d_in,
+    input wire data_ready,
     output reg rs = 0,
     output reg e = 0,
     output reg [7:0] d = 0,
