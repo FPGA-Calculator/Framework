@@ -1,0 +1,7 @@
+vlib work
+vmap work work
+
+# TODO: Compile sources
+
+vsim work.test_bench_top -vopt -voptargs=+acc
+do wave.do
