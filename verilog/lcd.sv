@@ -34,16 +34,16 @@ module lcd(
 
 parameter CLK_FREQ = 50000000;
 
-parameter int D_50ns  = int'(0.000000050 * CLK_FREQ);
-parameter int D_250ns = int'(0.000000250 * CLK_FREQ);
+localparam int D_50ns  = int'(0.000000050 * CLK_FREQ);
+localparam int D_250ns = int'(0.000000250 * CLK_FREQ);
 
-parameter int D_40us  = int'(0.000040000 * CLK_FREQ);
-parameter int D_60us  = int'(0.000060000 * CLK_FREQ);
-parameter int D_200us = int'(0.000200000 * CLK_FREQ);
+localparam int D_40us  = int'(0.000040000 * CLK_FREQ);
+localparam int D_60us  = int'(0.000060000 * CLK_FREQ);
+localparam int D_200us = int'(0.000200000 * CLK_FREQ);
 
-parameter int D_2ms   = int'(0.002000000 * CLK_FREQ);
-parameter int D_5ms   = int'(0.005000000 * CLK_FREQ);
-parameter int D_100ms = int'(0.100000000 * CLK_FREQ);
+localparam int D_2ms   = int'(0.002000000 * CLK_FREQ);
+localparam int D_5ms   = int'(0.005000000 * CLK_FREQ);
+localparam int D_100ms = int'(0.100000000 * CLK_FREQ);
 
 typedef enum logic[4:0] {
     STATE00, STATE01, STATE02, STATE03, STATE04, STATE05, STATE06, STATE07, STATE08, STATE09, STATE10, STATE11, STATE12,
