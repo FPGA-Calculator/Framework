@@ -50,7 +50,7 @@ typedef enum logic[4:0] {
     STATE13, STATE14, STATE15, STATE16, STATE17, STATE18, STATE19, STATE20, STATE21, STATE22, STATE23, STATE24, STATE25
 } state_t;
 
-reg [4:0] state = STATE00;
+state_t state = STATE00;
 reg [23:0] count = 0;
 reg start = 0;
 
