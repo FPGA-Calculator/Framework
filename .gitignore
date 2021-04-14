@@ -46,3 +46,9 @@ Thumbs.db
 db/
 incremental_db/
 output_files/
+
+# Modelsim files
+*.wlf
+transcript
+modelsim.ini
+*library/
