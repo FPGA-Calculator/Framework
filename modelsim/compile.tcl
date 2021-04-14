@@ -97,17 +97,3 @@ puts {
   r = restart the simulation
   q = Quit without confirmation
 }
-
-# How long since project began?
-if {[file isfile start_time.txt] == 0} {
-    set f [open start_time.txt w]
-    puts $f "Start time was [clock seconds]"
-    close $f
-} else {
-    set f [open start_time.txt r]
-    set line [gets $f]
-    close $f
-    regexp {\d+} $line start_time
-    set total_time [expr ([clock seconds]-$start_time)/60]
-    puts "Project time is $total_time minutes"
-}
