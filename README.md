@@ -7,6 +7,7 @@ This code accompanies the Calculator project described in this [blog].
 The project uses several tools that need to be installed separately:
 
 * Quartus synthesis tool for Altera FPGA devices ([Install][Quartus] version 13.0 SP1 to support Cyclone II device)
+* ModelSim (optional) ([Install][ModelSim] Starter Edition, or SE)
 * Verilator ([Install][verilator], suggested to install TOT and recompile it yourself)
 * Qt ([Install][Qt] version 5.15.x and support for desktop and WebAssembly targets
 
@@ -21,12 +22,11 @@ Load `quartus/*.qpf` project file into Quartus as a project; synthesise and flas
 ### Verilate
 Verilator is used to compile Verilog code into C++. There are two different makefiles depending on what we want to do with the software:
 
-* Compile it, and then run it for a limited number of cycles (until the LCD initializes and prints "Hello World"). Since this a default makefile, there is no need to specify it on the command line. **Note**: this will also run it with trace and coverage turned on, and will produce a large trace file which you can view using gtkwave.
+* Compile it, and then run it for a limited number of cycles (until the LCD initializes and prints "Hello World"). Since this a default makefile, there is no need to specify it on the command line. **Note**: this will also run it with trace and coverage turned on, and will produce a large trace file which you can view using gtkwave:
 ```sh
 make
 ```
-
-* Only compile Verilog code into C++ sources and do nothing. You need to do this step before trying to compile the project in Qt since it generates required verilated files.
+* Only compile Verilog code into C++ sources and do nothing. You need to do this step before trying to compile the project in Qt since it generates required verilated files:
 ```sh
 make -f MakefileQt
 ```
@@ -37,11 +37,17 @@ Qt compiles verilated sources along with its supporting project files into a sof
 1. Desktop application
 2. WebAssembly target
 
-Both targets allow you to run the Verilog code wrapped as a software app. You see what's displayed on the LCD screen, observe the state of 3 LEDs and also interact with a push-button.
+Both targets allow you to run the Verilog code wrapped as a software app. You can see what's displayed on the LCD screen, observe the state of 3 LEDs and also interact with a push-button.
 
-The WebAssembly project could be opened on the local PC (QtCreator will do that for you when you run the app), or it could be copied to a web server and loaded from there by pointing your browser to the generated files. The code should run in a web browser at the native speed after being quickly compiled on the client-side (today all major browsers support WebAssembly).
+The WebAssembly project can be opened on the local PC (QtCreator will do that for you when you run the app), or it can be copied to a web server and then loaded by a web browser.
+
+You can start a simple local web server by running this python command in the folder that contains your final WebAssembly files:
+```sh
+python3 -m http.server
+```
 
 [Quartus]: <https://fpgasoftware.intel.com/13.0sp1/>
+[ModelSim]: <https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/model-sim.html>
 [verilator]: <https://www.veripool.org/projects/verilator/wiki/Installing>
 [qt]: <https://www.qt.io/download>
 [blog]: <https://baltazarstudios.com/calculator4>
