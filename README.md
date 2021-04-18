@@ -11,7 +11,7 @@ The project uses several tools that need to be installed separately:
 * Verilator ([Install][verilator], suggested to install TOT and recompile it yourself)
 * Qt ([Install][Qt] version 5.15.x and support for desktop and WebAssembly targets
 
-Altough you could set everything up in Linux, the development was done in Windows 10 with WSL2 (Windows Subsystem for Linux) running Verilator. The setup is explained in more details [in a blog post here][blog]
+Altough you could set everything up in Linux, the development was done in Windows 10 with WSL2 (Windows Subsystem for Linux) running Verilator. The setup is explained in more details [in a blog post here][blog4]
 
 ## Build
 The same Verilog sources are build using different tools, for different purpose.
@@ -50,5 +50,6 @@ python3 -m http.server
 [ModelSim]: <https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/model-sim.html>
 [verilator]: <https://www.veripool.org/projects/verilator/wiki/Installing>
 [qt]: <https://www.qt.io/download>
-[blog]: <https://baltazarstudios.com/calculator4>
+[blog]: <https://baltazarstudios.com/calculator>
+[blog4]: <https://baltazarstudios.com/calculator4>
 [devboard]: <http://land-boards.com/blwiki/index.php?title=Cyclone_II_EP2C5_Mini_Dev_Board>
