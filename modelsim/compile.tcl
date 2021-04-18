@@ -23,6 +23,10 @@ set library_file_list {
         ../verilog/tb_top.sv
     }
 }
+
+# Copy project static resource files to the working area
+file copy -force ../verilog/lcd_cmd.txt .
+
 set top_level test_library.test_bench_top
 set wave_patterns { /top/* }
 set wave_radices { hexadecimal {data q} }

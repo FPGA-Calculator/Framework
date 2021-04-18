@@ -45,7 +45,7 @@ lcd lcd(
     .busy_flag(lcd_busy)
 );
 
-async_rom #(.ROM_FILE("../verilog/lcd_cmd.txt")) rom(
+async_rom #(.ROM_FILE("lcd_cmd.txt")) rom(
     .rom_in(rom_in),
     .rom_out(d_in)
 );
