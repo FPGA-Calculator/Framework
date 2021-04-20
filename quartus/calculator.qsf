@@ -106,23 +106,55 @@ set_location_assignment PIN_80 -to D[4]         # 8  R9  (0) -> GND (MOD)
 set_location_assignment PIN_81 -to D[5]         # 9  R10 (0) -> VCC1.2 (MOD)
 set_location_assignment PIN_86 -to D[6]         # 10
 set_location_assignment PIN_87 -to D[7]         # 11
-set_location_assignment PIN_88 -to IN[0]        # 12 (dedicated clock input or GPI)
-set_location_assignment PIN_89 -to IN[1]        # 13 (dedicated clock input or GPI)
-set_location_assignment PIN_90 -to IN[2]        # 14 (dedicated clock input or GPI)
-set_location_assignment PIN_91 -to IN[3]        # 15 (dedicated clock input or GPI)
-set_location_assignment PIN_92 -to GPIO2[8]     # 16
-set_location_assignment PIN_93 -to GPIO2[9]     # 17
-set_location_assignment PIN_94 -to GPIO2[10]    # 18
-set_location_assignment PIN_96 -to GPIO2[11]    # 19
-set_location_assignment PIN_97 -to GPIO2[12]    # 20
-set_location_assignment PIN_99 -to GPIO2[13]    # 21
-set_location_assignment PIN_100 -to GPIO2[14]   # 22
-set_location_assignment PIN_101 -to GPIO2[15]   # 23
+set_location_assignment PIN_88 -to ROW[0]       # 12 (dedicated clock input or GPI)
+set_location_assignment PIN_89 -to ROW[1]       # 13 (dedicated clock input or GPI)
+set_location_assignment PIN_90 -to ROW[2]       # 14 (dedicated clock input or GPI)
+set_location_assignment PIN_91 -to ROW[3]       # 15 (dedicated clock input or GPI)
+set_location_assignment PIN_92 -to ROW[4]       # 16
+set_location_assignment PIN_93 -to  COL[0]      # 17
+set_location_assignment PIN_94 -to  COL[1]      # 18
+set_location_assignment PIN_96 -to  COL[2]      # 19
+set_location_assignment PIN_97 -to  COL[3]      # 20
+set_location_assignment PIN_99 -to  COL[4]      # 21
+set_location_assignment PIN_100 -to COL[5]      # 22
+set_location_assignment PIN_101 -to COL[6]      # 23
 set_location_assignment PIN_103 -to RS          # 24
 set_location_assignment PIN_104 -to E           # 25
 # GND                                           # 26
 # GDD                                           # 27
 # VCC3.3                                        # 28
+
+set_instance_assignment -name OUTPUT_PIN_LOAD 20 -to D
+set_instance_assignment -name OUTPUT_PIN_LOAD 20 -to RS
+set_instance_assignment -name OUTPUT_PIN_LOAD 20 -to E
+
+set_instance_assignment -name IO_STANDARD LVTTL -to ROW[0]
+set_instance_assignment -name IO_STANDARD LVTTL -to ROW[1]
+set_instance_assignment -name IO_STANDARD LVTTL -to ROW[2]
+set_instance_assignment -name IO_STANDARD LVTTL -to ROW[3]
+set_instance_assignment -name IO_STANDARD LVTTL -to ROW[4]
+
+set_instance_assignment -name IO_STANDARD LVTTL -to COL[0]
+set_instance_assignment -name IO_STANDARD LVTTL -to COL[1]
+set_instance_assignment -name IO_STANDARD LVTTL -to COL[2]
+set_instance_assignment -name IO_STANDARD LVTTL -to COL[3]
+set_instance_assignment -name IO_STANDARD LVTTL -to COL[4]
+set_instance_assignment -name IO_STANDARD LVTTL -to COL[5]
+set_instance_assignment -name IO_STANDARD LVTTL -to COL[6]
+
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[0]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[1]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[2]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[3]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[4]
+
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[0]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[1]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[2]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[3]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[4]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[5]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[6]
 
 #--------------------------------------------------------------------------
 # BANK P3                                         Header 14x2 pin
