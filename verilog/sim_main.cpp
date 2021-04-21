@@ -57,8 +57,10 @@ int main(int argc, char** argv, char** env) {
     const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
 
     // Set Vtop's input signals
-    top->BUTTON = !0;
+    top->BT_RESET = !0;
     top->CLOCK_50 = 0;
+    top->ROW = 0b11111;
+    top->COL = 0b1111111;
 
     // Simulate until $finish
     while (!contextp->gotFinish()) {
@@ -84,9 +86,9 @@ int main(int argc, char** argv, char** env) {
         // reset is not sampled there.
         if (!top->CLOCK_50) {
             if (contextp->time() > 1 && contextp->time() < 10) {
-                top->BUTTON = !1;  // Assert reset
+                top->BT_RESET = !1;  // Assert reset
             } else {
-                top->BUTTON = !0;  // Deassert reset
+                top->BT_RESET = !0;  // Deassert reset
             }
         }
 

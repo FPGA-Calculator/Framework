@@ -6,7 +6,9 @@
 module top
 (
     input wire CLOCK_50,
-    input wire BUTTON,
+    input wire BT_RESET,
+    input wire [4:0] ROW,
+    input wire [6:0] COL,
     output logic RS,
     output logic E,
     output logic [7:0] D,
@@ -60,7 +62,7 @@ controller controller (
 
 debounce debounce(
     .clk (CLOCK_50),
-    .in  (BUTTON),
+    .in  (BT_RESET),
     .out (clean_signal)
 );
 
@@ -96,9 +98,9 @@ always_ff @(posedge CLOCK_50) begin
 end
 
 always_ff @(posedge CLOCK_50) begin
-    button <= BUTTON;
+    button <= BT_RESET;
 end
 
-assign {LED[2], LED[1], LED[0]} = {button, clean_signal, blink};
+assign {LED[2], LED[1], LED[0]} = {button, &{ROW, COL}, blink};
 
 endmodule : top

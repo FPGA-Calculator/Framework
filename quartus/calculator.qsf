@@ -25,9 +25,9 @@ set_instance_assignment -name IO_STANDARD LVTTL -to CLOCK_50
 ###########################################################################
 # Pushbuttons
 ###########################################################################
-set_location_assignment PIN_144 -to BUTTON
-set_instance_assignment -name IO_STANDARD LVTTL -to BUTTON
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to BUTTON
+set_location_assignment PIN_144 -to BT_RESET
+set_instance_assignment -name IO_STANDARD LVTTL -to BT_RESET
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to BT_RESET
 
 ###########################################################################
 # LEDs
@@ -92,10 +92,10 @@ set_instance_assignment -name IO_STANDARD LVTTL -to COL[4]
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[5]
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[6]
 
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[0]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[1]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[2]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[3]
+# set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[0] (cannot use weak pullup)
+# set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[1] (cannot use weak pullup)
+# set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[2] (cannot use weak pullup)
+# set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[3] (cannot use weak pullup)
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[4]
 
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[0]

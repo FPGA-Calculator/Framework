@@ -11,7 +11,9 @@ ClassSim::ClassSim(int argc, char *argv[]) : QObject(nullptr)
     contextp->commandArgs(argc, argv);
 
     // Set Vtop's input signals
-    top->BUTTON = button_state;
+    top->BT_RESET = button_state;
+    top->ROW = 0b11111;
+    top->COL = 0b1111111;
     top->CLOCK_50 = 0;
 }
 
@@ -35,7 +37,7 @@ int ClassSim::run(ulong ticks)
         top->CLOCK_50 = !top->CLOCK_50;
 
         // Set button state
-        top->BUTTON = button_state;
+        top->BT_RESET = button_state;
 
         // Evaluate model
         top->eval();
