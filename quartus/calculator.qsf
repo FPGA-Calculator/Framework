@@ -61,13 +61,13 @@ set_location_assignment PIN_89 -to ROW[1]       # 13 (dedicated clock input or G
 set_location_assignment PIN_90 -to ROW[2]       # 14 (dedicated clock input or GPI)
 set_location_assignment PIN_91 -to ROW[3]       # 15 (dedicated clock input or GPI)
 set_location_assignment PIN_92 -to ROW[4]       # 16
-set_location_assignment PIN_93 -to  COL[0]      # 17
-set_location_assignment PIN_94 -to  COL[1]      # 18
-set_location_assignment PIN_96 -to  COL[2]      # 19
-set_location_assignment PIN_97 -to  COL[3]      # 20
-set_location_assignment PIN_99 -to  COL[4]      # 21
-set_location_assignment PIN_100 -to COL[5]      # 22
-set_location_assignment PIN_101 -to COL[6]      # 23
+set_location_assignment PIN_93 -to ROW[5]       # 17
+set_location_assignment PIN_94 -to ROW[6]       # 18
+set_location_assignment PIN_96 -to  COL[0]      # 19
+set_location_assignment PIN_97 -to  COL[1]      # 20
+set_location_assignment PIN_99 -to  COL[2]      # 21
+set_location_assignment PIN_100 -to COL[3]      # 22
+set_location_assignment PIN_101 -to COL[4]      # 23
 set_location_assignment PIN_103 -to RS          # 24
 set_location_assignment PIN_104 -to E           # 25
 # GND                                           # 26
@@ -83,28 +83,28 @@ set_instance_assignment -name IO_STANDARD LVTTL -to ROW[1]
 set_instance_assignment -name IO_STANDARD LVTTL -to ROW[2]
 set_instance_assignment -name IO_STANDARD LVTTL -to ROW[3]
 set_instance_assignment -name IO_STANDARD LVTTL -to ROW[4]
+set_instance_assignment -name IO_STANDARD LVTTL -to ROW[5]
+set_instance_assignment -name IO_STANDARD LVTTL -to ROW[6]
 
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[0]
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[1]
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[2]
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[3]
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[4]
-set_instance_assignment -name IO_STANDARD LVTTL -to COL[5]
-set_instance_assignment -name IO_STANDARD LVTTL -to COL[6]
 
 # set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[0] (cannot use weak pullup)
 # set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[1] (cannot use weak pullup)
 # set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[2] (cannot use weak pullup)
 # set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[3] (cannot use weak pullup)
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[4]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[5]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[6]
 
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[0]
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[1]
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[2]
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[3]
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[4]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[5]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[6]
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # These are some common settings that all boards might want to have

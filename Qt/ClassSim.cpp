@@ -12,8 +12,8 @@ ClassSim::ClassSim(int argc, char *argv[]) : QObject(nullptr)
 
     // Set Vtop's input signals
     top->BT_RESET = button_state;
-    top->ROW = 0b11111;
-    top->COL = 0b1111111;
+    top->COL = 0b11111;
+    top->ROW = 0b1111111;
     top->CLOCK_50 = 0;
 }
 

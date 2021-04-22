@@ -59,8 +59,8 @@ int main(int argc, char** argv, char** env) {
     // Set Vtop's input signals
     top->BT_RESET = !0;
     top->CLOCK_50 = 0;
-    top->ROW = 0b11111;
-    top->COL = 0b1111111;
+    top->COL = 0b11111;
+    top->ROW = 0b1111111;
 
     // Simulate until $finish
     while (!contextp->gotFinish()) {

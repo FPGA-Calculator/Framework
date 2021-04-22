@@ -7,8 +7,8 @@ module top
 (
     input wire CLOCK_50,
     input wire BT_RESET,
-    input wire [4:0] ROW,
-    input wire [6:0] COL,
+    input wire [4:0] COL,
+    input wire [6:0] ROW,
     output logic RS,
     output logic E,
     output logic [7:0] D,
