@@ -92,19 +92,21 @@ set_instance_assignment -name IO_STANDARD LVTTL -to COL[2]
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[3]
 set_instance_assignment -name IO_STANDARD LVTTL -to COL[4]
 
+# Make sure the internal pullup is disabled for ROW and COL wires to the keypad
+
 # set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[0] (cannot use weak pullup)
 # set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[1] (cannot use weak pullup)
 # set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[2] (cannot use weak pullup)
 # set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[3] (cannot use weak pullup)
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[4]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[5]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ROW[6]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR OFF -to ROW[4]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR OFF -to ROW[5]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR OFF -to ROW[6]
 
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[0]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[1]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[2]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[3]
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to COL[4]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR OFF -to COL[0]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR OFF -to COL[1]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR OFF -to COL[2]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR OFF -to COL[3]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR OFF -to COL[4]
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # These are some common settings that all boards might want to have
