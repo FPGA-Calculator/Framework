@@ -8,11 +8,14 @@ timeunit 1ns;
 timeprecision 100ps;
 
 reg CLOCK_50 = 0;
-bit BUTTON = 1;
 bit RS;
 bit E;
 bit [7:0] D;
 logic [2:0] LED;
+logic BT_RESET = 1;
+logic [4:0] COL = 5'b11111;
+logic [6:0] ROW = 7'b1111111;
+
 
 initial begin : init
     $display("Start of test at %d", $time);
