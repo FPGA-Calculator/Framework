@@ -29,7 +29,7 @@ module lcd(
     output reg rs = 0,
     output reg e = 0,
     output reg [7:0] d = 0,
-    output reg busy_flag = 0
+    output reg busy_flag = 1 // Start with LCD busy to ensure no requests until done with the init
 );
 
 parameter CLK_FREQ = 50000000;
