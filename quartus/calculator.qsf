@@ -28,6 +28,7 @@ set_instance_assignment -name IO_STANDARD LVTTL -to CLOCK_50
 set_location_assignment PIN_144 -to BT_RESET
 set_instance_assignment -name IO_STANDARD LVTTL -to BT_RESET
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to BT_RESET
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to BT_RESET
 
 ###########################################################################
 # LEDs
