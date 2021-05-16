@@ -17,7 +17,7 @@ module top
 // Define the output trace file, which, as a parameter, can be overriden
 parameter TRACE_FILE="logs/vlt_dump.vcd";
 
-reg internal_reset = 0;
+reg reset = 0;
 reg last_signal = 0;
 logic clean_signal;
 logic data_ready;
@@ -38,7 +38,7 @@ end
 
 lcd lcd(
     .clock(CLOCK_50),
-    .internal_reset(internal_reset),
+    .reset(reset),
     .d_in(d_in),
     .data_ready(data_ready),
     .rs(RS),
@@ -55,7 +55,7 @@ async_rom #(.ROM_FILE("lcd_cmd.txt")) rom(
 controller controller (
     .clock(CLOCK_50),
     .lcd_busy(lcd_busy),
-    .internal_reset(internal_reset),
+    .reset(reset),
     .rom_address(rom_in),
     .data_ready(data_ready)
 );
@@ -70,11 +70,11 @@ always_ff @ (posedge CLOCK_50) begin
     if (last_signal != clean_signal) begin
         last_signal <= clean_signal;
         if (clean_signal == 0) begin
-            internal_reset <= 1;
+            reset <= 1;
         end
     end
     else begin
-        internal_reset <= 0;
+        reset <= 0;
     end
 end
 

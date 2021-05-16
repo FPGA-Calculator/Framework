@@ -23,7 +23,7 @@
 
 module lcd(
     input wire clock,
-    input wire internal_reset,
+    input wire reset,
     input wire [8:0] d_in,
     input wire data_ready,
     output reg rs = 0,
@@ -58,7 +58,7 @@ always_ff @(posedge clock) begin
     if (data_ready) begin
         start <= 1;
     end
-    if (internal_reset) begin
+    if (reset) begin
         state <= STATE00;
         count <= 0;
     end

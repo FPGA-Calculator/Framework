@@ -6,7 +6,7 @@
 module controller (
     input wire clock,
     input wire lcd_busy,
-    input wire internal_reset,
+    input wire reset,
     output reg [3:0] rom_address = 0,
     output reg data_ready = 0
 );
@@ -17,7 +17,7 @@ reg halt = 0;
 always_ff @(posedge clock) begin
 
     // Resets the demo on the push button
-    if (internal_reset) begin
+    if (reset) begin
         rom_address <= 0;
         data_ready <= 0;
         current_lcd_state <= 0;
