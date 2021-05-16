@@ -61,9 +61,9 @@ controller controller (
 );
 
 debounce debounce(
-    .clk (CLOCK_50),
-    .in  (BT_RESET),
-    .out (clean_signal)
+    .clock (CLOCK_50),
+    .in    (BT_RESET),
+    .out   (clean_signal)
 );
 
 always_ff @ (posedge CLOCK_50) begin

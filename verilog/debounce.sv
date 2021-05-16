@@ -4,7 +4,7 @@
 `default_nettype none
 
 module debounce (
-    input wire clk,
+    input wire clock,
     input wire in,
     output logic out
 );
@@ -14,7 +14,7 @@ logic [19:0] timer = 0;
 
 assign delta = in ^ out;
 
-always_ff @(posedge clk) begin
+always_ff @(posedge clock) begin
     if (timer[19]) begin
         out <= in;
         timer <= 0;
